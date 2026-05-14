@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>View</title>
+</head>
+
+<body>
+	<h1>View Posts</h1>
+    <h2>What kind of meals do you want to view?</h2>
+	<form action="/post" method="post">
+		<fieldset>
+            <select id="type" name="type">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="dessert">Dessert</option>
+            </select>
+			<br><br>
+		</fieldset>
+
+		<br>
+		<input type="reset" />
+		<input type="submit" value="View"/>
+	</form>
+	<hr>
+    <a href="/">HOME</a>
+
+</body>
+
+</html>

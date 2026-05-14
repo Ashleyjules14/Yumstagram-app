@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Post Confirmation</title>
+</head>
+
+<body>
+	<h1>Post Information</h1>
+	<div>
+		<strong>Username: </strong><%= username %><br>
+		<strong>Description: </strong><%= description %><br>
+		<strong>Meal Type: </strong><%= type %><br>
+        <strong>Photo: </strong>
+        <% if (photoUrl) { %>
+            <img src="<%= photoUrl %>" alt="Meal photo" />
+        <% } else { %>
+            <p>None</p>
+        <% } %>
+		<hr>
+	</div>
+    <a href="/">HOME</a>
+</body>
+
+</html>

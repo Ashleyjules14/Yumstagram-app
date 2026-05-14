@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>Post</title>
+</head>
+
+<body>
+	<h1>Post</h1>
+	<form action="/post" method="post">
+		<fieldset>
+			<label>Username: <input type="text" name="name"/></label>
+			<label>Meal Description: <input type="text" name="email"></label>
+			<br><br>
+            <label for="type">Meal Type:</label>
+            <select id="type" name="type">
+                <option value="breakfast">Breakfast</option>
+                <option value="lunch">Lunch</option>
+                <option value="dinner">Dinner</option>
+                <option value="dessert">Dessert</option>
+            </select>
+			<br><br>
+		</fieldset>
+
+		<br>
+		<input type="reset" />
+		<input type="submit" value="Submit Application"/>
+	</form>
+	<hr>
+    <a href="/">HOME</a>
+
+	<script>
+		window.onsubmit = function (event) {
+    		return confirm("Are you sure you want to post your meal?");
+		};
+	</script>
+</body>
+
+</html>

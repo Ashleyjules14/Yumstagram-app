@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<title>View Posts</title>
+</head>
+
+<body>
+	<h1>View Posts</h1>
+    <% if (posts.length === 0) { %>
+        <p>No entries found.</p>
+    <% } else { %>
+        <% posts.forEach(post => { %>
+            <div>
+                <strong>Username: </strong><%= post.username %><br>
+                <strong>Description: </strong><%= post.description %><br>
+                <strong>Meal Type: </strong><%= post.type %><br>
+                <strong>Photo: </strong>
+                <% if (post.photoUrl) { %>
+                    <img src="<%= post.photoUrl %>" alt="Meal photo" />
+                <% } else { %>
+                    <p>None</p>
+                <% } %>
+                <hr>
+            </div>
+        <% }) %>
+    <% } %>
+    <a href="/">HOME</a>
+</body>
+
+</html>
