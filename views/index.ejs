@@ -1,0 +1,76 @@
+<%- include('header', { title: 'PlateShare — Home' }) %>
+
+<!-- Hero Banner -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>What did you <em>make</em> today?</h1>
+    <p>Share your meals, discover recipes, and inspire others.</p>
+    <a href="/post" class="btn-hero">Share a Meal →</a>
+  </div>
+  <% if (featured) { %>
+  <div class="hero-card">
+    <img src="<%= featured.strMealThumb %>" alt="<%= featured.strMeal %>" />
+    <div class="hero-card-label">✨ Recipe Inspiration</div>
+    <div class="hero-card-title"><%= featured.strMeal %></div>
+  </div>
+  <% } %>
+</section>
+
+<!-- Category Quick Links -->
+<section class="category-strip">
+  <a href="/breakfast" class="cat-pill breakfast">🌅 Breakfast</a>
+  <a href="/lunch"     class="cat-pill lunch">☀️ Lunch</a>
+  <a href="/dinner"    class="cat-pill dinner">🌙 Dinner</a>
+  <a href="/dessert"   class="cat-pill dessert">🍰 Dessert</a>
+</section>
+
+<!-- Feed -->
+<section class="feed-section">
+  <h2 class="section-title">Latest Posts</h2>
+
+  <% if (meals.length === 0) { %>
+    <div class="empty-state">
+      <p>No meals yet — be the first to share! 🍴</p>
+      <a href="/post" class="btn-hero">Post Now</a>
+    </div>
+  <% } else { %>
+  <div class="meal-grid">
+    <% meals.forEach(meal => { %>
+    <div class="meal-card">
+      <div class="meal-card-img-wrap">
+        <img src="<%= meal.image %>" alt="<%= meal.title %>" class="meal-card-img" />
+        <span class="meal-badge <%= meal.category %>"><%= meal.category %></span>
+      </div>
+      <div class="meal-card-body">
+        <h3 class="meal-title"><%= meal.title %></h3>
+        <p class="meal-desc"><%= meal.description %></p>
+        <div class="meal-meta">
+          <span class="meal-user">@<%= meal.username %></span>
+          <button class="like-btn" data-id="<%= meal._id %>">
+            ❤️ <span class="like-count"><%= meal.likes %></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</section>
+
+<script>
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      const res = await fetch(`/like/${id}`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        const countEl = btn.querySelector('.like-count');
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+        btn.classList.add('liked');
+        btn.disabled = true;
+      }
+    });
+  });
+</script>
+
+<%- include('footer') %>

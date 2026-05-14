@@ -1,0 +1,67 @@
+<%- include('header', { title: 'PlateShare — Share a Meal' }) %>
+
+<section class="post-section">
+  <div class="post-container">
+    <h1 class="post-heading">🍴 Share Your Meal</h1>
+    <p class="post-subheading">Show the world what you made!</p>
+
+    <% if (error) { %>
+      <div class="error-banner"><%= error %></div>
+    <% } %>
+
+    <form action="/post" method="POST" enctype="multipart/form-data" class="post-form">
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" placeholder="e.g. chef_maria" required />
+      </div>
+
+      <div class="form-group">
+        <label for="title">Meal Title</label>
+        <input type="text" id="title" name="title" placeholder="e.g. Grandma's Lasagna" required />
+      </div>
+
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="category" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="breakfast">🌅 Breakfast</option>
+          <option value="lunch">☀️ Lunch</option>
+          <option value="dinner">🌙 Dinner</option>
+          <option value="dessert">🍰 Dessert</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" name="description" rows="4"
+          placeholder="Tell us about your meal — ingredients, inspiration, tips..." required></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="image">Photo of Your Meal</label>
+        <div class="file-drop" id="fileDrop">
+          <span id="fileLabel">📷 Click to upload or drag & drop</span>
+          <input type="file" id="image" name="image" accept="image/*" required />
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">Post My Meal 🍽️</button>
+    </form>
+  </div>
+</section>
+
+<script>
+  const fileInput = document.getElementById('image');
+  const fileLabel = document.getElementById('fileLabel');
+  const fileDrop  = document.getElementById('fileDrop');
+
+  fileInput.addEventListener('change', () => {
+    if (fileInput.files[0]) {
+      fileLabel.textContent = '✅ ' + fileInput.files[0].name;
+      fileDrop.classList.add('has-file');
+    }
+  });
+</script>
+
+<%- include('footer') %>

@@ -1,0 +1,80 @@
+<%
+const labels = {
+  breakfast: { emoji: '🌅', label: 'Breakfast', color: 'breakfast' },
+  lunch:     { emoji: '☀️', label: 'Lunch',     color: 'lunch' },
+  dinner:    { emoji: '🌙', label: 'Dinner',    color: 'dinner' },
+  dessert:   { emoji: '🍰', label: 'Dessert',   color: 'dessert' }
+};
+const meta = labels[category];
+%>
+<%- include('header', { title: `PlateShare — ${meta.label}` }) %>
+
+<section class="cat-hero <%= meta.color %>-hero">
+  <h1><%= meta.emoji %> <%= meta.label %></h1>
+  <p>Community-shared <%= meta.label.toLowerCase() %> meals</p>
+</section>
+
+<!-- API Inspiration Section -->
+<% if (suggestions.length > 0) { %>
+<section class="inspiration-section">
+  <h2 class="section-title">💡 Recipe Inspiration from MealDB</h2>
+  <div class="inspiration-grid">
+    <% suggestions.forEach(s => { %>
+    <div class="inspiration-card">
+      <img src="<%= s.strMealThumb %>/preview" alt="<%= s.strMeal %>" />
+      <p><%= s.strMeal %></p>
+    </div>
+    <% }) %>
+  </div>
+</section>
+<% } %>
+
+<!-- Posts -->
+<section class="feed-section">
+  <h2 class="section-title">Community <%= meta.label %> Posts</h2>
+
+  <% if (meals.length === 0) { %>
+    <div class="empty-state">
+      <p>No <%= meta.label.toLowerCase() %> posts yet! 🍴</p>
+      <a href="/post" class="btn-hero">Be the first →</a>
+    </div>
+  <% } else { %>
+  <div class="meal-grid">
+    <% meals.forEach(meal => { %>
+    <div class="meal-card">
+      <div class="meal-card-img-wrap">
+        <img src="<%= meal.image %>" alt="<%= meal.title %>" class="meal-card-img" />
+      </div>
+      <div class="meal-card-body">
+        <h3 class="meal-title"><%= meal.title %></h3>
+        <p class="meal-desc"><%= meal.description %></p>
+        <div class="meal-meta">
+          <span class="meal-user">@<%= meal.username %></span>
+          <button class="like-btn" data-id="<%= meal._id %>">
+            ❤️ <span class="like-count"><%= meal.likes %></span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <% }) %>
+  </div>
+  <% } %>
+</section>
+
+<script>
+  document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', async () => {
+      const id = btn.dataset.id;
+      const res = await fetch(`/like/${id}`, { method: 'POST' });
+      const data = await res.json();
+      if (data.success) {
+        const countEl = btn.querySelector('.like-count');
+        countEl.textContent = parseInt(countEl.textContent) + 1;
+        btn.classList.add('liked');
+        btn.disabled = true;
+      }
+    });
+  });
+</script>
+
+<%- include('footer') %>

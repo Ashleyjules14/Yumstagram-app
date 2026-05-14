@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !== 'undefined' ? title : 'PlateShare' %></title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="/" class="nav-logo">🍽️ PlateShare</a>
+  <div class="nav-links">
+    <a href="/breakfast" class="nav-link breakfast-link">🌅 Breakfast</a>
+    <a href="/lunch"     class="nav-link lunch-link">☀️ Lunch</a>
+    <a href="/dinner"    class="nav-link dinner-link">🌙 Dinner</a>
+    <a href="/dessert"   class="nav-link dessert-link">🍰 Dessert</a>
+  </div>
+  <a href="/post" class="btn-post">+ Share a Meal</a>
+</nav>
