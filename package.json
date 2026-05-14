@@ -1,5 +1,5 @@
 {
-  "name": "yumstagram-app",
+  "name": "yumstagram",
   "version": "1.0.0",
   "description": "Social media page where users can post meals that they’ve made",
   "main": "index.js",
