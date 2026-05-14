@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
-const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 const app = express();
 
@@ -16,31 +17,28 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ─── Multer (image uploads) ───────────────────────────────────────────────────
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => cb(null, 'public/uploads/'),
-  filename: (req, file, cb) => {
-    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    cb(null, unique + path.extname(file.originalname));
-  }
+// ─── Cloudinary (image uploads) ──────────────────────────────────────────────
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUD_API_KEY,
+  api_secret: process.env.CLOUD_API_SECRET
 });
-const upload = multer({
-  storage,
-  fileFilter: (req, file, cb) => {
-    const allowed = /jpeg|jpg|png|gif|webp/;
-    const valid = allowed.test(path.extname(file.originalname).toLowerCase());
-    cb(null, valid);
-  }
+
+const storage = new CloudinaryStorage({
+  cloudinary,
+  params: { folder: 'yumstagram', allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'] }
 });
-app.locals.upload = upload; // share with routes
+
+const upload = multer({ storage });
+app.locals.upload = upload;
 
 // ─── Routes ───────────────────────────────────────────────────────────────────
-app.use('/',         require('./routes/meals'));
+app.use('/',          require('./routes/meals'));
 app.use('/breakfast', require('./routes/breakfast'));
-app.use('/lunch',    require('./routes/lunch'));
-app.use('/dinner',   require('./routes/dinner'));
-app.use('/dessert',  require('./routes/dessert'));
+app.use('/lunch',     require('./routes/lunch'));
+app.use('/dinner',    require('./routes/dinner'));
+app.use('/dessert',   require('./routes/dessert'));
 
 // ─── Start Server ─────────────────────────────────────────────────────────────
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`🍽️  PlateShare running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`🍽️  Yumstagram running on http://localhost:${PORT}`));
