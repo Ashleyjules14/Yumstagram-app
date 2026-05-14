@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 
 // ─── MongoDB Connection ───────────────────────────────────────────────────────
-mongoose.connect('mongodb+srv://icyig:hRPWpn8IRRdRXLoF@yumstagram.bdk8bbl.mongodb.net/plateShare?appName=yumstagram')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => console.error('❌ MongoDB error:', err));
 
