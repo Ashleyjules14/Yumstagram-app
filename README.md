@@ -11,10 +11,10 @@ Deployed App Link - https://yumstagram.onrender.com
 AI Use: 1. Claude Code
 Below we included an example of the information we are expecting. Please follow this format. Please use markdown (https://markdowntohtml.com/) so we can select links you provide in the information.
 
-            Submitted by: Rose Smith (superterp)
-            Group Members: Rose Smith (superterp), Peter Santos (pmegaterp)
+            Submitted by: Ashley Woo (ashwoo11)
+            Group Members: Ashley Woo (ashwoo11), Megan Walker (meganw23), Ian Green (igreen4)
             App Description: Allow users to find images, songs of an author, and store/retrieve the results.
-            YouTube Video Link: https://www.youtube.com/MyAmazingAPP
+            YouTube Video Link: [https://www.youtu.be/YrbT8-gr8vY](https://youtu.be/YrbT8-gr8vY)
             APIs: VideoApp (http:notrealvideoapp.what), SoundApp (http:notreadlsoundapp.what)
             Contact Email:  superterp@notreal.address.what
             Deployed App Link: https://notreal.what.terpNel/myApp
