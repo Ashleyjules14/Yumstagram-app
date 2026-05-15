@@ -46,6 +46,7 @@ router.post('/post', (req, res) => {
 
 router.post('/like/:id', async (req, res) => {
   try {
+    await Meal.findByIdAndUpdate(req.params.id, { $inc: { likes: 1 } });
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ success: false });
