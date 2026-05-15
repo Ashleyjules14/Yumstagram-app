@@ -1,6 +1,5 @@
 <%- include('header', { title: 'Yumstagram — Home' }) %>
 
-<!-- Hero Banner -->
 <section class="hero">
   <div class="hero-text">
     <h1>What did you <em>eat</em> today?</h1>
@@ -8,15 +7,14 @@
     <a href="/post" class="btn-hero">Share a Meal →</a>
   </div>
   <% if (featured) { %>
-  <div class="hero-card">
+  <a href="https://www.themealdb.com/meal/<%= featured.idMeal %>" target="_blank" class="hero-card">
     <img src="<%= featured.strMealThumb %>" alt="<%= featured.strMeal %>" />
     <div class="hero-card-label">✨ Recipe Inspiration</div>
     <div class="hero-card-title"><%= featured.strMeal %></div>
-  </div>
+  </a>
   <% } %>
 </section>
 
-<!-- Category Quick Links -->
 <section class="category-strip">
   <a href="/breakfast" class="cat-pill breakfast">🌅 Breakfast</a>
   <a href="/lunch"     class="cat-pill lunch">☀️ Lunch</a>
@@ -24,7 +22,6 @@
   <a href="/dessert"   class="cat-pill dessert">🍰 Dessert</a>
 </section>
 
-<!-- Feed -->
 <section class="feed-section">
   <h2 class="section-title">Latest Posts</h2>
 
