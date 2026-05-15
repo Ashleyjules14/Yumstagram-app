@@ -2,11 +2,12 @@
   "name": "yumstagram",
   "version": "1.0.0",
   "description": "Social media page where users can post meals that they’ve made",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
-  },
+"main": "app.js",
+"scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js"
+},
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ashleyjules14/Yumstagram-app.git"
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/Ashleyjules14/Yumstagram-app#readme",
   "dependencies": {
+    "axios": "^1.16.1",
     "cloudinary": "^1.41.3",
     "dotenv": "^17.4.2",
     "ejs": "^5.0.2",

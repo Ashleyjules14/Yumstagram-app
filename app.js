@@ -2,13 +2,16 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
-const cloudinary = require('cloudinary').v2;
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
+const path = require("path");
+
+require("dotenv").config({
+  path: path.resolve(__dirname, "credentialsDontPost/.env"),
+});
 
 const app = express();
 
 // ─── MongoDB Connection ───────────────────────────────────────────────────────
-mongoose.connect(process.env.MONGO_URI)
+mongoose.connect(process.env.MONGO_CONNECTION_STRING)
   .then(() => console.log('✅ MongoDB connected'))
   .catch(err => console.error('❌ MongoDB error:', err));
 
@@ -18,16 +21,14 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-// ─── Cloudinary (image uploads) ──────────────────────────────────────────────
-cloudinary.config({
-  cloud_name: process.env.CLOUD_NAME,
-  api_key: process.env.CLOUD_API_KEY,
-  api_secret: process.env.CLOUD_API_SECRET
-});
 
-const storage = new CloudinaryStorage({
-  cloudinary,
-  params: { folder: 'yumstagram', allowed_formats: ['jpg', 'jpeg', 'png', 'gif', 'webp'] }
+// ─── Cloudinary (image uploads) ──────────────────────────────────────────────
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, 'public/uploads/'),
+  filename: (req, file, cb) => {
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(null, unique + path.extname(file.originalname));
+  }
 });
 
 const upload = multer({ storage });
