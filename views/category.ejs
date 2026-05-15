@@ -14,22 +14,20 @@ const meta = labels[category];
   <p>Community-shared <%= meta.label.toLowerCase() %> meals</p>
 </section>
 
-<!-- API Inspiration Section -->
 <% if (suggestions.length > 0) { %>
 <section class="inspiration-section">
   <h2 class="section-title">💡 Recipe Inspiration from MealDB</h2>
   <div class="inspiration-grid">
     <% suggestions.forEach(s => { %>
-    <div class="inspiration-card">
+    <a href="https://www.themealdb.com/meal/<%= s.idMeal %>" target="_blank" class="inspiration-card">
       <img src="<%= s.strMealThumb %>/preview" alt="<%= s.strMeal %>" />
       <p><%= s.strMeal %></p>
-    </div>
+    </a>
     <% }) %>
   </div>
 </section>
 <% } %>
 
-<!-- Posts -->
 <section class="feed-section">
   <h2 class="section-title">Community <%= meta.label %> Posts</h2>
 
